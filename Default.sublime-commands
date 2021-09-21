@@ -1,0 +1,25 @@
+[
+    {
+        "caption": "Preferences: FontCycler Settings",
+        "command": "edit_settings",
+        "args": {
+            "base_file": "${packages}/FontCycler/FontCycler.sublime-settings",
+            "default": "{\n\t$0\n}\n"
+        }
+    },
+    {
+        "caption": "FontCycler: Next Font",
+        "command": "next_font"
+    },
+    {
+        "caption": "FontCycler: Prev Font",
+        "command": "next_font",
+        "args": {
+            "delta": -1
+        }
+    },
+    {
+        "caption": "FontCycler: Show Current Font",
+        "command": "show_current_font"
+    }
+]

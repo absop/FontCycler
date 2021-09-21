@@ -1,0 +1,13 @@
+[
+    {
+        "keys": ["f10"],
+        "command": "next_font"
+    },
+    {
+        "keys": ["shift+f10"],
+        "command": "next_font",
+        "args": {
+            "delta": -1
+        }
+    }
+]
