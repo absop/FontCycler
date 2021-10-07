@@ -1,4 +1,4 @@
-FontCycler
+FontList
 ==========
 
 Quickly cycle between your favorite fonts in Sublime Text with the press of a key. Some research says that this makes you productive.
@@ -12,7 +12,7 @@ Usage
 
 You can cycle through the fonts by pressing the `F10` key, and cycle backwards with `Shift+F10`.
 
-You need to set the `font_list` key in the `FontCycler.sublime-settings`(<u>Preferences>Package Settings>FontCycler>Settings</u>) file to a list of fonts you want to cycle within. The fonts need to be **pre-installed** on the system.
+You need to set the `font_list` key in the `FontList.sublime-settings`(<u>Preferences>Package Settings>FontList>Settings</u>) file to a list of fonts you want to cycle within. The fonts need to be **pre-installed** on the system.
 
 You can specify just a font name or an object with the properties `font_face`, `font_size`, `line_padding_bottom`, `line_padding_top`, `word_wrap` and `wrap_width`. `font_face` is a required property on the object.
 

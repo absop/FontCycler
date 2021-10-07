@@ -7,7 +7,7 @@
         "keys": ["shift+f10"],
         "command": "next_font",
         "args": {
-            "delta": -1
+            "reverse": true
         }
     }
 ]

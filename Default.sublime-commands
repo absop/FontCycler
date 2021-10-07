@@ -1,25 +1,29 @@
 [
     {
-        "caption": "Preferences: FontCycler Settings",
+        "caption": "Preferences: FontList Settings",
         "command": "edit_settings",
         "args": {
-            "base_file": "${packages}/FontCycler/FontCycler.sublime-settings",
+            "base_file": "${packages}/FontList/FontList.sublime-settings",
             "default": "{\n\t$0\n}\n"
         }
     },
     {
-        "caption": "FontCycler: Next Font",
+        "caption": "FontList: Next Font",
         "command": "next_font"
     },
     {
-        "caption": "FontCycler: Prev Font",
+        "caption": "FontList: Prev Font",
         "command": "next_font",
         "args": {
-            "delta": -1
+            "reverse": true
         }
     },
     {
-        "caption": "FontCycler: Show Current Font",
+        "caption": "FontList: Switch Font",
+        "command": "switch_font"
+    },
+    {
+        "caption": "FontList: Show Current Font",
         "command": "show_current_font"
     }
 ]
