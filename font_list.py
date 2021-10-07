@@ -3,7 +3,7 @@ import sublime
 import sublime_plugin
 
 
-all_font_options = (
+font_attributes = (
     'font_face',
     'font_size',
     'line_padding_bottom',
@@ -18,8 +18,8 @@ SETTINGS_FILE = 'FontList.sublime-settings'
 CURRENT_KIND = (sublime.KIND_ID_COLOR_GREENISH, "✓", "Current")
 
 
-def get_font_options(settings):
-    return { k: settings.get(k) for k in all_font_options}
+def get_font(settings):
+    return { k: settings.get(k) for k in font_attributes}
 
 
 def contains(d1, d2):
@@ -51,7 +51,7 @@ class ShowCurrentFontCommand(sublime_plugin.TextCommand):
         view_settings = self.view.settings()
         sublime.message_dialog(
             '\n'.join("%s: %s" % (opt, view_settings.get(opt))
-                for opt in all_font_options)
+                for opt in font_attributes)
             )
 
 
@@ -59,7 +59,7 @@ class NextFontCommand(sublime_plugin.WindowCommand):
     def run(self, reverse=False):
         prefs = sublime.load_settings(PREFS_FILE)
         settings = sublime.load_settings(SETTINGS_FILE)
-        font_list, selected = get_font_list(settings, get_font_options(prefs))
+        font_list, selected = get_font_list(settings, get_font(prefs))
 
         if reverse:
             font_list = font_list[selected-1:] + font_list[:selected-1]
@@ -107,7 +107,7 @@ class FontInputHandler(sublime_plugin.ListInputHandler):
             if index != self.last_previewed:
                 return
             font = self.font_list[index]
-            if contains(get_font_options(self.prefs), font):
+            if contains(get_font(self.prefs), font):
                 return
             self.prefs.update(font)
             for v in self.overridden_views(find=False):
@@ -120,7 +120,7 @@ class FontInputHandler(sublime_plugin.ListInputHandler):
     def list_items(self):
         self.prefs = sublime.load_settings(PREFS_FILE)
         self.settings = sublime.load_settings(SETTINGS_FILE)
-        self.current_font = get_font_options(self.prefs)
+        self.current_font = get_font(self.prefs)
         self.font_list, selected = get_font_list(
             self.settings, self.current_font)
         items = [
@@ -150,7 +150,7 @@ class FontInputHandler(sublime_plugin.ListInputHandler):
                 return []
             # If the font face hasn't been changed, we won't
             # be able to detect overrides
-            if get_font_options(self.prefs) == self.current_font:
+            if get_font(self.prefs) == self.current_font:
                 return []
             vs = []
             for i in range(self.window.num_groups()):
@@ -160,7 +160,7 @@ class FontInputHandler(sublime_plugin.ListInputHandler):
                         settings = v.settings()
                         vs.append({
                             'settings': settings,
-                            'original': get_font_options(settings)
+                            'original': get_font(settings)
                         })
             self.views = vs
         return self.views
