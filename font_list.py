@@ -22,8 +22,8 @@ def get_font(settings):
     return { k: settings.get(k) for k in font_attributes}
 
 
-def contains(d1, d2):
-    return all(k in d1 and d1[k] == d2[k] for k in d2)
+def contains(font1, font2):
+    return all(k in font1 and font1[k] == font2[k] for k in font2)
 
 
 def get_font_list(settings, default_font):
@@ -110,7 +110,7 @@ class FontInputHandler(sublime_plugin.ListInputHandler):
             if contains(get_font(self.prefs), font):
                 return
             self.prefs.update(font)
-            for v in self.overridden_views(find=False):
+            for v in self.overridden_views():
                 v['settings'].update(font)
 
         sublime.set_timeout(lambda: preview(index), 250)
@@ -118,6 +118,7 @@ class FontInputHandler(sublime_plugin.ListInputHandler):
         return ""
 
     def list_items(self):
+        self.window = sublime.active_window()
         self.prefs = sublime.load_settings(PREFS_FILE)
         self.settings = sublime.load_settings(SETTINGS_FILE)
         self.current_font = get_font(self.prefs)
@@ -174,16 +175,8 @@ class FontInputHandler(sublime_plugin.ListInputHandler):
             A bool if the font_face is specific to the view
         """
 
-        vcs = view.settings().get('font_face', DEFAULT_CS)
-        pd = self.window.project_data()
-        pcs = None
-        if pd is not None:
-            pcs = pd.get('settings', {}).get('font_face')
-        gcs = self.prefs.get('font_face')
-
-        if pcs is not None and vcs != pcs:
-            return True
-        return vcs != gcs
+        vfont = get_font(view.settings())
+        return not contains(self.current_font, vfont)
 
     def reset_views(self):
         """
